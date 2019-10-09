@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.thorstenmarx.webtools.core.modules.cachelayer</groupId>
+	<artifactId>cachelayer</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>WebTools Core Modules - CacheLayer</name>
+	<inceptionYear>2019</inceptionYear>
+	<licenses>
+		<license>
+			<name>GNU General Public License v3(GPLv3)</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+	<organization>
+		<name>WP DigitalExperience</name>
+		<url>https://wp-digitalexperience.com</url>
+	</organization>
+
+	<modules>
+
+		<module>impl</module>
+		<module>module</module>
+
+	</modules>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>12</maven.compiler.source>
+		<maven.compiler.target>12</maven.compiler.target>
+
+		<webtools.version>3.2.0-SNAPSHOT</webtools.version>
+
+		<testng.version>6.14.3</testng.version>
+		<assertj.version>3.11.1</assertj.version>
+		<easymock.version>4.0.1</easymock.version>
+
+		<slf4j.version>1.7.25</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>${easymock.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.thorstenmarx.webtools.core.modules.cachelayer</groupId>
+				<artifactId>cachelayer-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.thorstenmarx.webtools</groupId>
+				<artifactId>webtools-api</artifactId>
+				<version>${webtools.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.ben-manes.caffeine</groupId>
+				<artifactId>caffeine</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.14</version>
+				<configuration>
+					<licenseName>gpl_v3</licenseName>
+					<verbose>false</verbose>
+					<addSvnKeyWords>false</addSvnKeyWords>
+				</configuration>
+			</plugin>
+		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-http</artifactId>
+				<version>3.3.3</version>
+			</extension>
+		</extensions>
+	</build>
+	<repositories>
+		<repository>
+			<id>wp-digitalexperience-ftp</id>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+			<url>https://maven.wp-digitalexperience.com/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+</project>

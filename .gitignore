@@ -1,0 +1,14 @@
+target/
+build/
+.gradle/
+.nb-gradle/
+nbproject
+/modules/engine/private
+/modules/engine/indexDir
+/.nb-gradle-properties
+.settings
+.project
+.classpath
+nb-configuration.xml
+.vscode
+.factorypath

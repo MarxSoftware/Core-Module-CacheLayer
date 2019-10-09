@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adslots>
+	<adslot id="slot1">
+		<mappings>
+			<mapping width="1000" format="728x90" />
+			<mapping width="700" format="468x60" />
+			<mapping width="450" format="180x150" />
+		</mappings>
+	</adslot>		
+	<adslot id="slot2">
+		<mappings>
+			<mapping width="1000" format="728x90" />
+			<mapping width="700" format="468x60" />
+			<mapping width="450" format="180x150" />
+		</mappings>
+	</adslot>
+</adslots>
