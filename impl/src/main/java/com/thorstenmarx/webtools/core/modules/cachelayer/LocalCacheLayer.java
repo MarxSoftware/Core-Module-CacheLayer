@@ -21,7 +21,6 @@ package com.thorstenmarx.webtools.core.modules.cachelayer;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Expiry;
@@ -38,8 +37,9 @@ import java.util.concurrent.TimeUnit;
 public class LocalCacheLayer implements CacheLayer {
 
 	private Cache<String, Expirable> cache;
-	
-	public LocalCacheLayer () {
+
+
+	public LocalCacheLayer() {
 		cache = Caffeine.newBuilder().expireAfter(new Expiry<String, Expirable>() {
 			@Override
 			public long expireAfterCreate(String key, Expirable value, long currentTime) {
@@ -56,21 +56,23 @@ public class LocalCacheLayer implements CacheLayer {
 				return currentDuration;
 			}
 		}).build();
+
 	}
-	
+
 	@Override
-	public <T extends Serializable> void add (final String key, final T value, final long duration, final TimeUnit unit) {
+	public <T extends Serializable> void add(final String key, final T value, final long duration, final TimeUnit unit) {
 		Expirable cache_value = new Expirable(value, unit.toNanos(duration));
 		cache.put(key, cache_value);
 	}
 
 	@Override
 	public <T extends Serializable> Optional<T> get(final String key, final Class<T> clazz) {
+
 		Expirable ifPresent = cache.getIfPresent(key);
-		if (ifPresent != null && clazz.isInstance(ifPresent.getValue())){
-			return Optional.of(clazz.cast(ifPresent.getValue()));
+		if (ifPresent != null && clazz.isInstance(ifPresent.getValue())) {
+			return Optional.ofNullable(clazz.cast(ifPresent.getValue()));
 		}
-		
+
 		return Optional.empty();
 	}
 
@@ -78,5 +80,10 @@ public class LocalCacheLayer implements CacheLayer {
 	public boolean exists(final String key) {
 		return cache.getIfPresent(key) != null;
 	}
-	
+
+	@Override
+	public void invalidate(final String key) {
+		cache.invalidate(key);
+	}
+
 }

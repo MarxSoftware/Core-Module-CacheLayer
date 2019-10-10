@@ -22,7 +22,6 @@ package com.thorstenmarx.webtools.core.modules.cachelayer;
  * #L%
  */
 
-import com.thorstenmarx.webtools.api.cache.CacheLayer;
 import java.util.concurrent.TimeUnit;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.BeforeClass;
@@ -34,7 +33,7 @@ import org.testng.annotations.Test;
  */
 public class LocalCacheLayerNGTest {
 	
-	CacheLayer cache;
+	LocalCacheLayer cache;
 	
 	@BeforeClass
 	public void setUpClass() throws Exception {
@@ -54,10 +53,17 @@ public class LocalCacheLayerNGTest {
 		Assertions.assertThat(cache.exists("test_expire")).isFalse();	
 	}
 	@Test
-	public void test_get () throws InterruptedException {
-		cache.add("test_get", "That's my dog", 5, TimeUnit.SECONDS);		
+	public void test_list () throws InterruptedException {
+		cache.add("test_list", "That's my dog", 5, TimeUnit.SECONDS);		
 		Thread.sleep(3000l);
-		Assertions.assertThat(cache.get("test_get", String.class).get()).isEqualTo("That's my dog");
+		Assertions.assertThat(cache.get("test_list", String.class))
+				.isPresent();
+	}
+	@Test
+	public void test_list_expire () throws InterruptedException {
+		cache.add("test_list_expire", "That's my dog", 5, TimeUnit.SECONDS);		
+		Thread.sleep(6000l);
+		Assertions.assertThat(cache.exists("test_list_expire")).isFalse();
 	}
 	
 }
