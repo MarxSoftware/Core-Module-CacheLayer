@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.thorstenmarx.webtools.core.modules.cachelayer</groupId>
 	<artifactId>cachelayer</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<packaging>pom</packaging>
 
 	<name>WebTools Core Modules - CacheLayer</name>
@@ -31,7 +31,7 @@
 		<maven.compiler.source>12</maven.compiler.source>
 		<maven.compiler.target>12</maven.compiler.target>
 
-		<webtools.version>3.2.0</webtools.version>
+		<webtools.version>3.3.0-SNAPSHOT</webtools.version>
 
 		<testng.version>6.14.3</testng.version>
 		<assertj.version>3.11.1</assertj.version>
