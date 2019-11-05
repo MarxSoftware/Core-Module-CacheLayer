@@ -92,7 +92,7 @@ public class ClusterCacheLayer implements CacheLayer, MessageService.MessageList
 		message.setType(CACHE_ADD);
 		message.setPayload(gson.toJson(payload));
 		try {	
-			cluster.getRAFTMessageService().publish(message);
+			cluster.getMessageService().publish(message);
 		} catch (IOException ex) {
 			LOGGER.error("", ex);
 		}
@@ -126,7 +126,7 @@ public class ClusterCacheLayer implements CacheLayer, MessageService.MessageList
 		message.setType(CACHE_INVALIDATE);
 		message.setPayload(gson.toJson(payload));
 		try {	
-			cluster.getRAFTMessageService().publish(message);
+			cluster.getMessageService().publish(message);
 		} catch (IOException ex) {
 			LOGGER.error("", ex);
 		}
