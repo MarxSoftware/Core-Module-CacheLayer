@@ -21,7 +21,6 @@ import com.thorstenmarx.modules.api.ModuleLifeCycleExtension;
 import com.thorstenmarx.modules.api.annotation.Extension;
 import com.thorstenmarx.webtools.api.CoreModuleContext;
 import com.thorstenmarx.webtools.api.cache.CacheLayer;
-import com.thorstenmarx.webtools.core.modules.cachelayer.ClusterCacheLayer;
 import com.thorstenmarx.webtools.core.modules.cachelayer.LocalCacheLayer;
 
 /**
@@ -39,11 +38,7 @@ public class CoreModuleCacheLayerModuleLifeCycle extends ModuleLifeCycleExtensio
 
 	@Override
 	public void activate() {
-		if (getCoreContext().getCluster() == null) {
-			cachelayer = new LocalCacheLayer();
-		} else {
-			cachelayer = new ClusterCacheLayer(getCoreContext().getCluster());
-		}
+		cachelayer = new LocalCacheLayer();
 
 		getContext().serviceRegistry().register(CacheLayer.class, cachelayer);
 	}
@@ -51,11 +46,6 @@ public class CoreModuleCacheLayerModuleLifeCycle extends ModuleLifeCycleExtensio
 	@Override
 	public void deactivate() {
 		getContext().serviceRegistry().unregister(CacheLayer.class, cachelayer);
-		
-		if (getCoreContext().getCluster() != null) {
-			 ((ClusterCacheLayer)cachelayer).close();
-		}
-
 	}
 
 	@Override
