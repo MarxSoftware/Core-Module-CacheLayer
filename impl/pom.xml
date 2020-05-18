@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.thorstenmarx.webtools.core.modules.cachelayer</groupId>
 		<artifactId>cachelayer</artifactId>
-		<version>1.3.0</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>cachelayer-impl</artifactId>
 	<packaging>jar</packaging>
