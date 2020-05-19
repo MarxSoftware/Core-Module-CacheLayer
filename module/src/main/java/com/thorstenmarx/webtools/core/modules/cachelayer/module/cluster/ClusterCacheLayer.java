@@ -29,7 +29,6 @@ import com.thorstenmarx.webtools.api.cache.CacheLayer;
 import com.thorstenmarx.webtools.api.cache.Expirable;
 import com.thorstenmarx.webtools.api.cluster.ClusterMessageAdapter;
 import com.thorstenmarx.webtools.api.cluster.ClusterService;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -88,7 +87,7 @@ public class ClusterCacheLayer implements CacheLayer, ClusterMessageAdapter<Stri
 		payload.type = CACHE_ADD;
 		payload.key = key;
 		payload.value = cache_value;
-		cluster.append(CACHE_TYPE, gson.toJson(payload));
+		cluster.spread(CACHE_TYPE, gson.toJson(payload));
 	}
 
 	@Override
@@ -112,7 +111,8 @@ public class ClusterCacheLayer implements CacheLayer, ClusterMessageAdapter<Stri
 		Payload payload = new Payload();
 		payload.type = CACHE_INVALIDATE;
 		payload.key = key;
-		cluster.append(CACHE_TYPE, gson.toJson(payload));
+		cluster.spread(CACHE_TYPE, gson.toJson(payload));
+		this.cache.invalidate(key);
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class ClusterCacheLayer implements CacheLayer, ClusterMessageAdapter<Stri
 		if (CACHE_ADD.equals(payload.type)) {
 			cache.put(payload.key, payload.value);
 		} else if (CACHE_INVALIDATE.equals(payload.type)) {
-			this.invalidate(payload.key);
+			this.cache.invalidate(payload.key);
 		}
 	}
 
